@@ -1,16 +1,16 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign In & Select College</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Sign In &amp; Select College
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&amp;display=swap" rel="stylesheet"/>
   <style>
-    body {
+   body {
       font-family: 'Inter', sans-serif;
       margin: 0;
       overflow: hidden; /* Remove scroll bar */
@@ -36,7 +36,7 @@
       to {opacity: 1; transform: translateX(0);}
     }
     /* Container max height and width to prevent scroll */
-    #signInPage, #selectionPage, #queuePage {
+    #signInPage, #selectionPage, #queuePage, #confirmationPage {
       max-height: 100vh;
       overflow: hidden;
     }
@@ -99,431 +99,445 @@
       flex-grow: 1;
       padding-bottom: 1rem;
     }
+    /* Scrollable confirmation page main content */
+    #confirmationPage main {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 1rem;
+    }
   </style>
-</head>
-<body>
+ </head>
+ <body>
   <!-- Sign In Page -->
-  <div id="signInPage" class="bg-[#fff9f9] w-full max-w-xs p-8 flex flex-col items-center">
-    <div aria-label="Orange circle logo" class="w-20 h-20 rounded-full bg-[#fb9a6a] mb-6"></div>
-    <h1 class="font-extrabold text-xl mb-1 text-black">Welcome</h1>
-    <p class="text-sm mb-6 text-black">Please sign in to continue</p>
-    <form id="signInForm" class="w-full" onsubmit="return false;">
-      <label class="block text-xs mb-1 text-black" for="username">Username or Email</label>
-      <input
-        class="w-full mb-4 text-xs rounded-md bg-[#f7f5f7] px-3 py-2 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
-        id="username"
-        placeholder="Enter your username"
-        type="text"
-        required
-      />
-      <div class="flex justify-between items-center mb-1">
-        <label class="text-xs text-black" for="password">Password</label>
-        <a class="text-xs text-[#fb6a2a] hover:underline" href="#">Forgot password?</a>
-      </div>
-      <div class="relative mb-4">
-        <input
-          class="w-full text-xs rounded-md bg-[#f7f5f7] px-3 py-2 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-400 pr-10"
-          id="password"
-          placeholder="Enter your password"
-          type="password"
-          required
-        />
-        <button
-          aria-label="Toggle password visibility"
-          class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#fb6a2a] focus:outline-none"
-          id="togglePassword"
-          type="button"
-        >
-          <i class="fas fa-eye" id="eyeIcon"></i>
-        </button>
-      </div>
-      <div class="mb-6">
-        <label class="inline-flex items-center text-xs text-black cursor-pointer">
-          <input class="form-checkbox text-orange-500" type="checkbox" />
-          <span class="ml-2">Remember me</span>
-        </label>
-      </div>
-      <button
-        class="w-full bg-[#fb6a2a] text-white font-semibold text-sm rounded-md py-2 shadow-md hover:bg-[#e05a1a] transition-colors"
-        type="submit"
-      >
-        Sign In
-      </button>
-    </form>
-    <p class="text-xs text-black mt-6 mb-3">
-      Don’t have an account?
-      <a class="text-[#fb6a2a] hover:underline" href="#">Sign up</a>
-    </p>
-    <div class="flex items-center w-full mb-6">
-      <hr class="border-gray-300 flex-grow" />
-      <span class="text-xs text-black px-3">Or continue with</span>
-      <hr class="border-gray-300 flex-grow" />
+  <div class="bg-[#fff9f9] w-full max-w-xs p-8 flex flex-col items-center" id="signInPage">
+   <div aria-label="Orange circle logo" class="w-20 h-20 rounded-full bg-[#fb9a6a] mb-6">
+   </div>
+   <h1 class="font-extrabold text-xl mb-1 text-black">
+    Welcome
+   </h1>
+   <p class="text-sm mb-6 text-black">
+    Please sign in to continue
+   </p>
+   <form class="w-full" id="signInForm" onsubmit="return false;">
+    <label class="block text-xs mb-1 text-black" for="username">
+     Username or Email
+    </label>
+    <input class="w-full mb-4 text-xs rounded-md bg-[#f7f5f7] px-3 py-2 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-400" id="username" placeholder="Enter your username" required="" type="text"/>
+    <div class="flex justify-between items-center mb-1">
+     <label class="text-xs text-black" for="password">
+      Password
+     </label>
+     <a class="text-xs text-[#fb6a2a] hover:underline" href="#">
+      Forgot password?
+     </a>
     </div>
-    <button aria-label="Sign in with Google" class="focus:outline-none" type="button">
-      <img
-        alt="Google logo with red, yellow, green and blue colors"
-        height="24"
-        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-        width="24"
-        style="display:block;"
-      />
+    <div class="relative mb-4">
+     <input class="w-full text-xs rounded-md bg-[#f7f5f7] px-3 py-2 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-orange-400 pr-10" id="password" placeholder="Enter your password" required="" type="password"/>
+     <button aria-label="Toggle password visibility" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#fb6a2a] focus:outline-none" id="togglePassword" type="button">
+      <i class="fas fa-eye" id="eyeIcon">
+      </i>
+     </button>
+    </div>
+    <div class="mb-6">
+     <label class="inline-flex items-center text-xs text-black cursor-pointer">
+      <input class="form-checkbox text-orange-500" type="checkbox"/>
+      <span class="ml-2">
+       Remember me
+      </span>
+     </label>
+    </div>
+    <button class="w-full bg-[#fb6a2a] text-white font-semibold text-sm rounded-md py-2 shadow-md hover:bg-[#e05a1a] transition-colors" type="submit">
+     Sign In
     </button>
+   </form>
+   <p class="text-xs text-black mt-6 mb-3">
+    Don’t have an account?
+    <a class="text-[#fb6a2a] hover:underline" href="#">
+     Sign up
+    </a>
+   </p>
+   <div class="flex items-center w-full mb-6">
+    <hr class="border-gray-300 flex-grow"/>
+    <span class="text-xs text-black px-3">
+     Or continue with
+    </span>
+    <hr class="border-gray-300 flex-grow"/>
+   </div>
+   <button aria-label="Sign in with Google" class="focus:outline-none" type="button">
+    <img alt="Google logo with red, yellow, green and blue colors" height="24" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style="display:block;" width="24"/>
+   </button>
   </div>
-
   <!-- College & Program Selection Page -->
-  <div id="selectionPage" class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full" style="max-width: 384px;">
-    <!-- Header -->
-    <header class="flex items-center justify-between bg-orange-500 px-4 py-3">
-      <button aria-label="Back" class="text-white text-lg" id="backBtn" disabled>
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <h1
-        class="text-white text-center text-base font-normal leading-tight max-w-[70%]"
-        id="headerTitle"
-      >
-        Select Your College & <br />Program
-      </h1>
-      <button aria-label="Info" class="text-white text-lg">
-        <i class="fas fa-info-circle"></i>
-      </button>
-    </header>
-
-    <!-- Step indicator -->
-    <div class="flex items-center justify-center gap-2 bg-gray-300 mt-4 px-4">
-      <div class="flex items-center gap-2" id="step1">
-        <div
-          class="flex items-center justify-center w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-semibold"
-        >
-          1
-        </div>
-        <span class="text-sm font-semibold text-gray-900">College Selection</span>
-      </div>
-      <div class="h-[1px] w-8 bg-gray-400"></div>
-      <div class="flex items-center gap-2" id="step2">
-        <div
-          class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-400 text-gray-500 text-xs font-semibold"
-        >
-          2
-        </div>
-        <span class="text-sm font-semibold text-gray-400">Program Selection</span>
-      </div>
-    </div>
-
-    <!-- Form container -->
-    <form
-      class="bg-gray-100 rounded-lg shadow-md mt-4 mx-4 p-4 flex flex-col gap-4 flex-grow"
-      aria-label="Academic Information"
-      id="selectionForm"
-    >
-      <h2 class="font-bold text-black text-base">Academic Information</h2>
-
-      <label
-        for="college"
-        class="text-sm font-normal text-gray-900 flex items-center gap-1"
-      >
-        Select College
-        <span class="text-orange-500 font-bold">*</span>
-      </label>
-      <select
-        id="college"
-        name="college"
-        class="w-full border-b border-gray-400 bg-transparent text-gray-700 text-sm py-1 focus:outline-none"
-        required
-      >
-        <option value="" selected disabled>Select a college</option>
-        <option value="arts">College of Arts and Humanities</option>
-        <option value="science">College of Science</option>
-        <option value="nursing">College of Nursing and Health Sciences</option>
-        <option value="teachers">College of Teachers Education</option>
-        <option value="business">College of Business and Accountancy</option>
-        <option value="engineering">College of Engineering and Technology</option>
-        <option value="architecture">College of Architecture and Design</option>
-        <option value="criminal">College of Criminal Justice Education</option>
-        <option value="hospitality">College of Hospitality Management and Tourism</option>
-      </select>
-
-      <label
-        for="program"
-        class="text-sm font-normal text-gray-900 flex items-center gap-1 mt-4"
-      >
-        Select a program
-        <span class="text-orange-500 font-bold">*</span>
-      </label>
-      <select
-        id="program"
-        name="program"
-        class="w-full border-b border-gray-400 bg-transparent text-gray-700 text-sm py-1 focus:outline-none"
-        required
-        disabled
-      >
-        <option value="" selected disabled>Select a program</option>
-      </select>
-    </form>
-
-    <!-- Info box -->
-    <div
-      id="infoBox"
-      class="bg-gray-100 rounded-lg shadow-md mt-6 mx-4 p-3 flex items-start gap-3 text-xs text-gray-900 opacity-100"
-      role="alert"
-    >
-      <i class="fas fa-info-circle text-orange-500 mt-[2px]"></i>
-      <p>
-        Your selection will determine your academic pathway and administrative contacts.
-        Make sure to review your choices before proceeding.
-      </p>
-    </div>
-
-    <!-- Continue button -->
-    <button
-      type="submit"
-      form="selectionForm"
-      id="continueBtn"
-      disabled
-      class="bg-gray-400 text-white text-sm font-normal rounded-md mx-4 mt-4 mb-6 py-2 w-[calc(100%-2rem)] cursor-not-allowed"
-    >
-      Continue
+  <div class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full" id="selectionPage" style="max-width: 384px;">
+   <!-- Header -->
+   <header class="flex items-center justify-between bg-orange-500 px-4 py-3">
+    <button aria-label="Back" class="text-white text-lg" disabled="" id="backBtn">
+     <i class="fas fa-arrow-left">
+     </i>
     </button>
+    <h1 class="text-white text-center text-base font-normal leading-tight max-w-[70%]" id="headerTitle">
+     Select Your College &amp;
+     <br/>
+     Program
+    </h1>
+    <button aria-label="Info" class="text-white text-lg">
+     <i class="fas fa-info-circle">
+     </i>
+    </button>
+   </header>
+   <!-- Step indicator -->
+   <div class="flex items-center justify-center gap-2 bg-gray-300 mt-4 px-4">
+    <div class="flex items-center gap-2" id="step1">
+     <div class="flex items-center justify-center w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-semibold">
+      1
+     </div>
+     <span class="text-sm font-semibold text-gray-900">
+      College Selection
+     </span>
+    </div>
+    <div class="h-[1px] w-8 bg-gray-400">
+    </div>
+    <div class="flex items-center gap-2" id="step2">
+     <div class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-400 text-gray-500 text-xs font-semibold">
+      2
+     </div>
+     <span class="text-sm font-semibold text-gray-400">
+      Program Selection
+     </span>
+    </div>
+   </div>
+   <!-- Form container -->
+   <form aria-label="Academic Information" class="bg-gray-100 rounded-lg shadow-md mt-4 mx-4 p-4 flex flex-col gap-4 flex-grow" id="selectionForm">
+    <h2 class="font-bold text-black text-base">
+     Academic Information
+    </h2>
+    <label class="text-sm font-normal text-gray-900 flex items-center gap-1" for="college">
+     Select College
+     <span class="text-orange-500 font-bold">
+      *
+     </span>
+    </label>
+    <select class="w-full border-b border-gray-400 bg-transparent text-gray-700 text-sm py-1 focus:outline-none" id="college" name="college" required="">
+     <option disabled="" selected="" value="">
+      Select a college
+     </option>
+     <option value="arts">
+      College of Arts and Humanities
+     </option>
+     <option value="science">
+      College of Science
+     </option>
+     <option value="nursing">
+      College of Nursing and Health Sciences
+     </option>
+     <option value="teachers">
+      College of Teachers Education
+     </option>
+     <option value="business">
+      College of Business and Accountancy
+     </option>
+     <option value="engineering">
+      College of Engineering and Technology
+     </option>
+     <option value="architecture">
+      College of Architecture and Design
+     </option>
+     <option value="criminal">
+      College of Criminal Justice Education
+     </option>
+     <option value="hospitality">
+      College of Hospitality Management and Tourism
+     </option>
+    </select>
+    <label class="text-sm font-normal text-gray-900 flex items-center gap-1 mt-4" for="program">
+     Select a program
+     <span class="text-orange-500 font-bold">
+      *
+     </span>
+    </label>
+    <select class="w-full border-b border-gray-400 bg-transparent text-gray-700 text-sm py-1 focus:outline-none" disabled="" id="program" name="program" required="">
+     <option disabled="" selected="" value="">
+      Select a program
+     </option>
+    </select>
+   </form>
+   <!-- Info box -->
+   <div class="bg-gray-100 rounded-lg shadow-md mt-6 mx-4 p-3 flex items-start gap-3 text-xs text-gray-900 opacity-100" id="infoBox" role="alert">
+    <i class="fas fa-info-circle text-orange-500 mt-[2px]">
+    </i>
+    <p>
+     Your selection will determine your academic pathway and administrative contacts.
+        Make sure to review your choices before proceeding.
+    </p>
+   </div>
+   <!-- Continue button -->
+   <button class="bg-gray-400 text-white text-sm font-normal rounded-md mx-4 mt-4 mb-6 py-2 w-[calc(100%-2rem)] cursor-not-allowed" disabled="" form="selectionForm" id="continueBtn" type="submit">
+    Continue
+   </button>
   </div>
-
   <!-- Queue Page (3rd page) -->
-  <div id="queuePage" class="max-w-4xl mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full p-4">
-    <!-- Header -->
-    <header class="flex items-center justify-between bg-gray-300 px-4 py-3 shadow-md">
-      <button aria-label="Back" class="text-black text-2xl font-extrabold leading-none" id="queueBackBtn">
-        <i class="fas fa-chevron-left"></i>
+  <div class="max-w-4xl mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full p-4" id="queuePage">
+   <!-- Header -->
+   <header class="flex items-center justify-between bg-gray-300 px-4 py-3 shadow-md">
+    <button aria-label="Back" class="text-black text-2xl font-extrabold leading-none" id="queueBackBtn">
+     <i class="fas fa-chevron-left">
+     </i>
+    </button>
+    <h1 class="text-black font-semibold text-lg">
+     Join Queue
+    </h1>
+    <div aria-hidden="true" class="w-10 h-10 rounded-full bg-orange-400">
+    </div>
+   </header>
+   <main class="px-4 py-4 space-y-6 w-full overflow-y-auto flex-grow" id="mainContent" tabindex="0">
+    <!-- Current Queue Status -->
+    <section aria-label="Current Queue Status" class="bg-white rounded-xl p-4 shadow-lg max-w-md mx-auto">
+     <div class="flex justify-between mb-2 text-sm text-gray-900 font-normal">
+      <span>
+       Current Queue Status
+      </span>
+      <span id="currentTime">
+       09:09 AM
+      </span>
+     </div>
+     <div class="flex justify-between items-center mb-4">
+      <div aria-label="Number in queue and wait time" class="bg-gray-300 rounded-lg shadow-md flex flex-col justify-center items-start px-6 py-3 w-28">
+       <span class="text-5xl font-light leading-none -mb-1" id="queueNumber">
+        9
+       </span>
+       <span class="text-base font-normal">
+        in queue
+       </span>
+       <span class="text-xs text-gray-600 -mt-1">
+        Short wait time
+       </span>
+      </div>
+      <div aria-label="Queue light status" class="bg-green-50 rounded-lg shadow-md flex flex-col justify-center items-center px-4 py-3 w-24">
+       <span class="text-sm font-normal mb-1">
+        Light
+       </span>
+       <div class="flex space-x-1 text-green-500 text-xl leading-none">
+        <i class="fas fa-signal" style="font-size: 1.5rem;">
+        </i>
+       </div>
+      </div>
+     </div>
+     <div aria-label="Estimated wait time" class="bg-gray-300 rounded-lg shadow-md flex items-center space-x-4 px-6 py-4">
+      <div aria-hidden="true" class="bg-orange-500 rounded-full w-10 h-10 flex justify-center items-center text-white text-xl">
+       <i class="far fa-clock">
+       </i>
+      </div>
+      <div class="flex flex-col">
+       <span class="text-base font-normal">
+        Estimated wait time
+       </span>
+       <span class="font-semibold text-lg" id="estimatedWait">
+        ~10 mins
+       </span>
+      </div>
+     </div>
+    </section>
+    <!-- Select Your Transaction -->
+    <section class="max-w-md mx-auto space-y-2" id="transactionSection">
+     <h2 class="text-gray-900 font-normal text-lg">
+      Select Your Transaction
+     </h2>
+     <p class="text-gray-700 text-sm mb-2">
+      Choose the service you need assisting with today
+     </p>
+     <div class="grid grid-cols-2 gap-4" id="transaction-buttons">
+      <button aria-label="Registration:Course enrollment and class registration" class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200" data-transaction="registration" type="button">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-book-open fa-lg">
+        </i>
+        <span class="font-semibold text-gray-900">
+         Registration
+        </span>
+       </div>
+       <p class="text-gray-800 text-sm leading-tight">
+        Course enrollment and class registration
+       </p>
       </button>
-      <h1 class="text-black font-semibold text-lg">Join Queue</h1>
-      <div class="w-10 h-10 rounded-full bg-orange-400" aria-hidden="true"></div>
-    </header>
-    <main class="px-4 py-4 space-y-6 w-full overflow-y-auto flex-grow" id="mainContent" tabindex="0">
-      <!-- Current Queue Status -->
-      <section class="bg-white rounded-xl p-4 shadow-lg max-w-md mx-auto" aria-label="Current Queue Status">
-        <div class="flex justify-between mb-2 text-sm text-gray-900 font-normal">
-          <span>Current Queue Status</span>
-          <span id="currentTime">09:09 AM</span>
-        </div>
-        <div class="flex justify-between items-center mb-4">
-          <div class="bg-gray-300 rounded-lg shadow-md flex flex-col justify-center items-start px-6 py-3 w-28" aria-label="Number in queue and wait time">
-            <span class="text-5xl font-light leading-none -mb-1" id="queueNumber">9</span>
-            <span class="text-base font-normal">in queue</span>
-            <span class="text-xs text-gray-600 -mt-1">Short wait time</span>
-          </div>
-          <div class="bg-green-50 rounded-lg shadow-md flex flex-col justify-center items-center px-4 py-3 w-24" aria-label="Queue light status">
-            <span class="text-sm font-normal mb-1">Light</span>
-            <div class="flex space-x-1 text-green-500 text-xl leading-none">
-              <i class="fas fa-signal" style="font-size: 1.5rem;"></i>
-            </div>
-          </div>
-        </div>
-        <div class="bg-gray-300 rounded-lg shadow-md flex items-center space-x-4 px-6 py-4" aria-label="Estimated wait time">
-          <div class="bg-orange-500 rounded-full w-10 h-10 flex justify-center items-center text-white text-xl" aria-hidden="true">
-            <i class="far fa-clock"></i>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-base font-normal">Estimated wait time</span>
-            <span class="font-semibold text-lg" id="estimatedWait">~10 mins</span>
-          </div>
-        </div>
-      </section>
-      <!-- Select Your Transaction -->
-      <section class="max-w-md mx-auto space-y-2" id="transactionSection">
-        <h2 class="text-gray-900 font-normal text-lg">Select Your Transaction</h2>
-        <p class="text-gray-700 text-sm mb-2">
-          Choose the service you need assisting with today
-        </p>
-        <div id="transaction-buttons" class="grid grid-cols-2 gap-4">
-          <button
-            type="button"
-            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
-            aria-label="Registration:Course enrollment and class registration"
-            data-transaction="registration"
-          >
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-book-open fa-lg"></i>
-              <span class="font-semibold text-gray-900">Registration</span>
-            </div>
-            <p class="text-gray-800 text-sm leading-tight">
-              Course enrollment and class registration
-            </p>
-          </button>
-          <button
-            type="button"
-            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
-            aria-label="Payment: Fee payments"
-            data-transaction="payment"
-          >
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-credit-card fa-lg"></i>
-              <span class="font-semibold text-gray-900">Payment</span>
-            </div>
-            <p class="text-gray-800 text-sm leading-tight">Fee payments</p>
-          </button>
-          <button
-            type="button"
-            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
-            aria-label="Document Requests: Transcripts, COR and Copy of Grades"
-            data-transaction="document-requests"
-          >
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-file-alt fa-lg"></i>
-              <span class="font-semibold text-gray-900">Document Requests</span>
-            </div>
-            <p class="text-gray-800 text-sm leading-tight">
-              Transcripts, COR and Copy of Grades
-            </p>
-          </button>
-          <button
-            type="button"
-            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
-            aria-label="Other: Additional services not listed"
-            data-transaction="other"
-          >
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-ellipsis-h fa-lg"></i>
-              <span class="font-semibold text-gray-900">Other</span>
-            </div>
-            <p class="text-gray-800 text-sm leading-tight">
-              Additional services not listed
-            </p>
-          </button>
-        </div>
-      </section>
-      <!-- Notification Preferences -->
-      <section
-        class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4"
-        aria-label="Notification Preferences"
-        id="notificationSection"
-      >
-        <div>
-          <h3 class="text-gray-900 font-normal text-lg">Notification Preferences</h3>
-          <p class="text-gray-700 text-sm">
-            How would you like to be notified about your queue status?
-          </p>
-        </div>
-        <form class="space-y-4" id="notification-form">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-bell fa-lg"></i>
-              <div>
-                <p class="font-semibold text-gray-900 leading-none">Push Notification</p>
-                <p class="text-gray-700 text-xs leading-tight">
-                  Receive alerts on this device
-                </p>
-              </div>
-            </div>
-            <input
-              type="checkbox"
-              id="pushNotification"
-              aria-checked="false"
-              aria-label="Enable Push Notification"
-            />
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2 text-orange-600">
-              <i class="fas fa-envelope fa-lg"></i>
-              <div>
-                <p class="font-semibold text-gray-900 leading-none">SMS Notification</p>
-                <p class="text-gray-700 text-xs leading-tight">
-                  Get text message about your queue status
-                </p>
-              </div>
-            </div>
-            <input
-              type="checkbox"
-              id="smsNotification"
-              aria-checked="false"
-              aria-label="Enable SMS Notification"
-              disabled
-            />
-          </div>
-          <div
-            id="phoneContainer"
-            class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 hidden"
-          >
-            <label for="phone" class="sr-only">Phone Number</label>
-            <input
-              id="phone"
-              type="text"
-              placeholder="Phone Number"
-              class="flex-grow border border-gray-900 rounded-md px-3 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-              aria-describedby="phoneHelp"
-              disabled
-            />
-            <button
-              type="button"
-              id="verifyBtn"
-              class="bg-gray-300 text-white px-5 py-2 rounded-md text-sm font-semibold cursor-not-allowed"
-              disabled
-            >
-              Verify
-            </button>
-          </div>
-          <p id="phoneHelp" class="text-xs text-gray-700 font-semibold hidden">
-            Standard message rate may apply
-          </p>
-          <div>
-            <p class="font-semibold text-gray-900 mb-2">You'll be notified:</p>
-            <ul class="space-y-1 text-gray-900 text-sm">
-              <li class="flex items-center space-x-2">
-                <span
-                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
-                  aria-hidden="true"
-                  >✓</span
-                >
-                <span>When you're 5th in line</span>
-              </li>
-              <li class="flex items-center space-x-2">
-                <span
-                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
-                  aria-hidden="true"
-                  >✓</span
-                >
-                <span>When you're next in line</span>
-              </li>
-              <li class="flex items-center space-x-2">
-                <span
-                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
-                  aria-hidden="true"
-                  >✓</span
-                >
-                <span>If estimated wait time changes significantly</span>
-              </li>
-            </ul>
-          </div>
-        </form>
-      </section>
-      <!-- Additional content to make page scrollable -->
-      <section class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4">
-        <h3 class="text-gray-900 font-semibold text-lg">Queue Guidelines</h3>
-        <p class="text-gray-700 text-sm">
-          Please arrive at least 10 minutes before your estimated time. If you are late, your spot may be forfeited.
-        </p>
-        <h3 class="text-gray-900 font-semibold text-lg">Contact Support</h3>
-        <p class="text-gray-700 text-sm">
-          For assistance, please contact our support team at
-          <a href="mailto:support@university.edu" class="text-orange-600 hover:underline">support@university.edu</a> or call
-          <a href="tel:+1234567890" class="text-orange-600 hover:underline">+1 (234) 567-890</a>.
-        </p>
-      </section>
-    </main>
-    <!-- Confirm Button -->
-    <footer class="max-w-md mx-auto px-4 pb-6 pt-4">
-      <button
-        type="button"
-        id="confirmBtn"
-        class="w-full bg-gray-400 text-white font-semibold text-xl rounded-lg py-3 mb-2 cursor-not-allowed"
-        disabled
-      >
-        Confirm &amp; Join Queue
+      <button aria-label="Payment: Fee payments" class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200" data-transaction="payment" type="button">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-credit-card fa-lg">
+        </i>
+        <span class="font-semibold text-gray-900">
+         Payment
+        </span>
+       </div>
+       <p class="text-gray-800 text-sm leading-tight">
+        Fee payments
+       </p>
       </button>
-      <p class="text-center text-gray-700 text-sm" id="footerMessage">
-        Please enable Push Notification and select a transaction to continue
+      <button aria-label="Document Requests: Transcripts, COR and Copy of Grades" class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200" data-transaction="document-requests" type="button">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-file-alt fa-lg">
+        </i>
+        <span class="font-semibold text-gray-900">
+         Document Requests
+        </span>
+       </div>
+       <p class="text-gray-800 text-sm leading-tight">
+        Transcripts, COR and Copy of Grades
+       </p>
+      </button>
+      <button aria-label="Other: Additional services not listed" class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200" data-transaction="other" type="button">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-ellipsis-h fa-lg">
+        </i>
+        <span class="font-semibold text-gray-900">
+         Other
+        </span>
+       </div>
+       <p class="text-gray-800 text-sm leading-tight">
+        Additional services not listed
+       </p>
+      </button>
+     </div>
+    </section>
+    <!-- Notification Preferences -->
+    <section aria-label="Notification Preferences" class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4" id="notificationSection">
+     <div>
+      <h3 class="text-gray-900 font-normal text-lg">
+       Notification Preferences
+      </h3>
+      <p class="text-gray-700 text-sm">
+       How would you like to be notified about your queue status?
       </p>
-    </footer>
+     </div>
+     <form class="space-y-4" id="notification-form">
+      <div class="flex items-center justify-between">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-bell fa-lg">
+        </i>
+        <div>
+         <p class="font-semibold text-gray-900 leading-none">
+          Push Notification
+         </p>
+         <p class="text-gray-700 text-xs leading-tight">
+          Receive alerts on this device
+         </p>
+        </div>
+       </div>
+       <input aria-checked="false" aria-label="Enable Push Notification" id="pushNotification" type="checkbox"/>
+      </div>
+      <div class="flex items-center justify-between">
+       <div class="flex items-center space-x-2 text-orange-600">
+        <i class="fas fa-envelope fa-lg">
+        </i>
+        <div>
+         <p class="font-semibold text-gray-900 leading-none">
+          SMS Notification
+         </p>
+         <p class="text-gray-700 text-xs leading-tight">
+          Get text message about your queue status
+         </p>
+        </div>
+       </div>
+       <input aria-checked="false" aria-label="Enable SMS Notification" disabled="" id="smsNotification" type="checkbox"/>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 hidden" id="phoneContainer">
+       <label class="sr-only" for="phone">
+        Phone Number
+       </label>
+       <input aria-describedby="phoneHelp" class="flex-grow border border-gray-900 rounded-md px-3 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" disabled="" id="phone" placeholder="Phone Number" type="text"/>
+       <button class="bg-gray-300 text-white px-5 py-2 rounded-md text-sm font-semibold cursor-not-allowed" disabled="" id="verifyBtn" type="button">
+        Verify
+       </button>
+      </div>
+      <p class="text-xs text-gray-700 font-semibold hidden" id="phoneHelp">
+       Standard message rate may apply
+      </p>
+      <div>
+       <p class="font-semibold text-gray-900 mb-2">
+        You'll be notified:
+       </p>
+       <ul class="space-y-1 text-gray-900 text-sm">
+        <li class="flex items-center space-x-2">
+         <span aria-hidden="true" class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold">
+          ✓
+         </span>
+         <span>
+          When you're 5th in line
+         </span>
+        </li>
+        <li class="flex items-center space-x-2">
+         <span aria-hidden="true" class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold">
+          ✓
+         </span>
+         <span>
+          When you're next in line
+         </span>
+        </li>
+        <li class="flex items-center space-x-2">
+         <span aria-hidden="true" class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold">
+          ✓
+         </span>
+         <span>
+          If estimated wait time changes significantly
+         </span>
+        </li>
+       </ul>
+      </div>
+     </form>
+    </section>
+    <!-- Additional content to make page scrollable -->
+    <section class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4">
+     <h3 class="text-gray-900 font-semibold text-lg">
+      Queue Guidelines
+     </h3>
+     <p class="text-gray-700 text-sm">
+      Please arrive at least 10 minutes before your estimated time. If you are late, your spot may be forfeited.
+     </p>
+     <h3 class="text-gray-900 font-semibold text-lg">
+      Contact Support
+     </h3>
+     <p class="text-gray-700 text-sm">
+      For assistance, please contact our support team at
+      <a class="text-orange-600 hover:underline" href="mailto:support@university.edu">
+       support@university.edu
+      </a>
+      or call
+      <a class="text-orange-600 hover:underline" href="tel:+1234567890">
+       +1 (234) 567-890
+      </a>
+      .
+     </p>
+    </section>
+   </main>
+   <!-- Confirm Button -->
+   <footer class="max-w-md mx-auto px-4 pb-6 pt-4">
+    <button class="w-full bg-gray-400 text-white font-semibold text-xl rounded-lg py-3 mb-2 cursor-not-allowed" disabled="" id="confirmBtn" type="button">
+     Confirm &amp; Join Queue
+    </button>
+    <p class="text-center text-gray-700 text-sm" id="footerMessage">
+     Please enable Push Notification and select a transaction to continue
+    </p>
+   </footer>
   </div>
-
+  <!-- Confirmation Page (4th page) -->
+  <div class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-white font-sans w-full p-6 rounded-lg shadow-lg" id="confirmationPage">
+   <header class="flex justify-center mb-6">
+    <img alt="Green checkmark icon symbolizing success and confirmation" class="w-20 h-20" height="80" src="https://storage.googleapis.com/a1aa/image/8cfe3aa0-5db3-4402-b183-79c0dd6164bf.jpg" width="80"/>
+   </header>
+   <main class="flex-grow flex flex-col items-center text-center space-y-4">
+    <h2 class="text-2xl font-bold text-gray-900">
+     You have successfully joined the queue!
+    </h2>
+    <p class="text-gray-700">
+     Thank you for joining the queue. Please wait for your turn and follow the instructions sent to your notifications.
+    </p>
+    <img alt="Illustration of a waiting room with people sitting and waiting patiently" class="w-full max-w-xs rounded-md shadow-md" height="200" src="https://storage.googleapis.com/a1aa/image/eef2e3ae-4c6c-4f65-b202-131b3a06b469.jpg" width="300"/>
+   </main>
+   <footer class="mt-6">
+    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-md transition-colors" id="doneBtn" type="button">
+     Done
+    </button>
+   </footer>
+  </div>
   <script>
-    // Password toggle
+   // Password toggle
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     const eyeIcon = document.getElementById('eyeIcon');
@@ -541,11 +555,12 @@
       }
     });
 
-    // Sign In form and page elements
+    // Page elements
     const signInForm = document.getElementById('signInForm');
     const signInPage = document.getElementById('signInPage');
     const selectionPage = document.getElementById('selectionPage');
     const queuePage = document.getElementById('queuePage');
+    const confirmationPage = document.getElementById('confirmationPage');
 
     // College & Program selection elements
     const programsByCollege = {
@@ -615,6 +630,8 @@
     const verifyBtn = document.getElementById("verifyBtn");
     const footerMessage = document.getElementById("footerMessage");
     const queueBackBtn = document.getElementById("queueBackBtn");
+
+    const doneBtn = document.getElementById("doneBtn");
 
     let selectedTransaction = null;
     let phoneVerified = false;
@@ -947,7 +964,7 @@
       updateConfirmButton();
     });
 
-    // Confirm button click
+    // Confirm button click - show confirmation page
     confirmBtn.addEventListener("click", () => {
       if (confirmBtn.disabled || joinedQueue) return;
       joinedQueue = true;
@@ -965,11 +982,42 @@
       footerMessage.textContent = "You have successfully joined the queue.";
       pushCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
       smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
+
+      // Hide queue page and show confirmation page
+      queuePage.classList.add('hidden');
+      confirmationPage.classList.remove('hidden');
+    });
+
+    // Done button click - reset to sign in page
+    doneBtn.addEventListener("click", () => {
+      confirmationPage.classList.add('hidden');
+      signInPage.classList.remove('hidden');
+
+      // Reset all forms and states
+      // Sign In form reset
+      signInForm.reset();
+
+      // Selection page reset
+      collegeSelect.value = "";
+      programSelect.innerHTML = '<option value="" selected disabled>Select a program</option>';
+      programSelect.disabled = true;
+      continueBtn.disabled = true;
+      continueBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+      continueBtn.classList.remove("bg-orange-600", "cursor-pointer");
+      infoBox.style.opacity = "1";
+      infoBox.style.pointerEvents = "auto";
+      step1.querySelector("div").classList.replace("bg-gray-400", "bg-orange-500");
+      step1.querySelector("span").classList.replace("text-gray-400", "text-gray-900");
+      step2.querySelector("div").classList.replace("bg-orange-500", "bg-gray-400");
+      step2.querySelector("span").classList.replace("text-gray-900", "text-gray-400");
+
+      // Queue page reset
+      resetQueuePage();
     });
 
     // Initial setup
     updateToggleStates();
     updateConfirmButton();
   </script>
-</body>
+ </body>
 </html>
