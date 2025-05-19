@@ -36,9 +36,68 @@
       to {opacity: 1; transform: translateX(0);}
     }
     /* Container max height and width to prevent scroll */
-    #signInPage, #selectionPage {
+    #signInPage, #selectionPage, #queuePage {
       max-height: 100vh;
       overflow: hidden;
+    }
+    /* Custom toggle switch styling */
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 3rem;
+      height: 1.5rem;
+      background-color: #d1d5db; /* gray-300 default off */
+      border-radius: 9999px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s ease;
+    }
+    input[type="checkbox"]:checked {
+      background-color: #f97316; /* orange-500 when on */
+    }
+    input[type="checkbox"]:disabled {
+      cursor: not-allowed;
+      background-color: #e5e7eb; /* gray-200 */
+    }
+    input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      top: 0.125rem;
+      left: 0.125rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: white;
+      border-radius: 9999px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 0 1px #9ca3af; /* gray-400 default */
+    }
+    input[type="checkbox"]:checked::before {
+      transform: translateX(1.5rem);
+      box-shadow: 0 0 0 1px #f97316; /* orange-500 when on */
+    }
+    /* Check icon inside toggle */
+    input[type="checkbox"]:checked::after {
+      content: "\f00c";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: #f97316;
+      position: absolute;
+      top: 0.125rem;
+      left: 0.125rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    /* Scrollable queue page main content */
+    #queuePage main {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-bottom: 1rem;
     }
   </style>
 </head>
@@ -226,6 +285,243 @@
     </button>
   </div>
 
+  <!-- Queue Page (3rd page) -->
+  <div id="queuePage" class="max-w-4xl mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full p-4">
+    <!-- Header -->
+    <header class="flex items-center justify-between bg-gray-300 px-4 py-3 shadow-md">
+      <button aria-label="Back" class="text-black text-2xl font-extrabold leading-none" id="queueBackBtn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h1 class="text-black font-semibold text-lg">Join Queue</h1>
+      <div class="w-10 h-10 rounded-full bg-orange-400" aria-hidden="true"></div>
+    </header>
+    <main class="px-4 py-4 space-y-6 w-full overflow-y-auto flex-grow" id="mainContent" tabindex="0">
+      <!-- Current Queue Status -->
+      <section class="bg-white rounded-xl p-4 shadow-lg max-w-md mx-auto" aria-label="Current Queue Status">
+        <div class="flex justify-between mb-2 text-sm text-gray-900 font-normal">
+          <span>Current Queue Status</span>
+          <span id="currentTime">09:09 AM</span>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+          <div class="bg-gray-300 rounded-lg shadow-md flex flex-col justify-center items-start px-6 py-3 w-28" aria-label="Number in queue and wait time">
+            <span class="text-5xl font-light leading-none -mb-1" id="queueNumber">9</span>
+            <span class="text-base font-normal">in queue</span>
+            <span class="text-xs text-gray-600 -mt-1">Short wait time</span>
+          </div>
+          <div class="bg-green-50 rounded-lg shadow-md flex flex-col justify-center items-center px-4 py-3 w-24" aria-label="Queue light status">
+            <span class="text-sm font-normal mb-1">Light</span>
+            <div class="flex space-x-1 text-green-500 text-xl leading-none">
+              <i class="fas fa-signal" style="font-size: 1.5rem;"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-300 rounded-lg shadow-md flex items-center space-x-4 px-6 py-4" aria-label="Estimated wait time">
+          <div class="bg-orange-500 rounded-full w-10 h-10 flex justify-center items-center text-white text-xl" aria-hidden="true">
+            <i class="far fa-clock"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-base font-normal">Estimated wait time</span>
+            <span class="font-semibold text-lg" id="estimatedWait">~10 mins</span>
+          </div>
+        </div>
+      </section>
+      <!-- Select Your Transaction -->
+      <section class="max-w-md mx-auto space-y-2" id="transactionSection">
+        <h2 class="text-gray-900 font-normal text-lg">Select Your Transaction</h2>
+        <p class="text-gray-700 text-sm mb-2">
+          Choose the service you need assisting with today
+        </p>
+        <div id="transaction-buttons" class="grid grid-cols-2 gap-4">
+          <button
+            type="button"
+            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
+            aria-label="Registration:Course enrollment and class registration"
+            data-transaction="registration"
+          >
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-book-open fa-lg"></i>
+              <span class="font-semibold text-gray-900">Registration</span>
+            </div>
+            <p class="text-gray-800 text-sm leading-tight">
+              Course enrollment and class registration
+            </p>
+          </button>
+          <button
+            type="button"
+            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
+            aria-label="Payment: Fee payments"
+            data-transaction="payment"
+          >
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-credit-card fa-lg"></i>
+              <span class="font-semibold text-gray-900">Payment</span>
+            </div>
+            <p class="text-gray-800 text-sm leading-tight">Fee payments</p>
+          </button>
+          <button
+            type="button"
+            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
+            aria-label="Document Requests: Transcripts, COR and Copy of Grades"
+            data-transaction="document-requests"
+          >
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-file-alt fa-lg"></i>
+              <span class="font-semibold text-gray-900">Document Requests</span>
+            </div>
+            <p class="text-gray-800 text-sm leading-tight">
+              Transcripts, COR and Copy of Grades
+            </p>
+          </button>
+          <button
+            type="button"
+            class="bg-white rounded-xl shadow-md p-4 flex flex-col space-y-1 text-left transition-colors duration-200"
+            aria-label="Other: Additional services not listed"
+            data-transaction="other"
+          >
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-ellipsis-h fa-lg"></i>
+              <span class="font-semibold text-gray-900">Other</span>
+            </div>
+            <p class="text-gray-800 text-sm leading-tight">
+              Additional services not listed
+            </p>
+          </button>
+        </div>
+      </section>
+      <!-- Notification Preferences -->
+      <section
+        class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4"
+        aria-label="Notification Preferences"
+        id="notificationSection"
+      >
+        <div>
+          <h3 class="text-gray-900 font-normal text-lg">Notification Preferences</h3>
+          <p class="text-gray-700 text-sm">
+            How would you like to be notified about your queue status?
+          </p>
+        </div>
+        <form class="space-y-4" id="notification-form">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-bell fa-lg"></i>
+              <div>
+                <p class="font-semibold text-gray-900 leading-none">Push Notification</p>
+                <p class="text-gray-700 text-xs leading-tight">
+                  Receive alerts on this device
+                </p>
+              </div>
+            </div>
+            <input
+              type="checkbox"
+              id="pushNotification"
+              aria-checked="false"
+              aria-label="Enable Push Notification"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-orange-600">
+              <i class="fas fa-envelope fa-lg"></i>
+              <div>
+                <p class="font-semibold text-gray-900 leading-none">SMS Notification</p>
+                <p class="text-gray-700 text-xs leading-tight">
+                  Get text message about your queue status
+                </p>
+              </div>
+            </div>
+            <input
+              type="checkbox"
+              id="smsNotification"
+              aria-checked="false"
+              aria-label="Enable SMS Notification"
+              disabled
+            />
+          </div>
+          <div
+            id="phoneContainer"
+            class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 hidden"
+          >
+            <label for="phone" class="sr-only">Phone Number</label>
+            <input
+              id="phone"
+              type="text"
+              placeholder="Phone Number"
+              class="flex-grow border border-gray-900 rounded-md px-3 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+              aria-describedby="phoneHelp"
+              disabled
+            />
+            <button
+              type="button"
+              id="verifyBtn"
+              class="bg-gray-300 text-white px-5 py-2 rounded-md text-sm font-semibold cursor-not-allowed"
+              disabled
+            >
+              Verify
+            </button>
+          </div>
+          <p id="phoneHelp" class="text-xs text-gray-700 font-semibold hidden">
+            Standard message rate may apply
+          </p>
+          <div>
+            <p class="font-semibold text-gray-900 mb-2">You'll be notified:</p>
+            <ul class="space-y-1 text-gray-900 text-sm">
+              <li class="flex items-center space-x-2">
+                <span
+                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
+                  aria-hidden="true"
+                  >✓</span
+                >
+                <span>When you're 5th in line</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span
+                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
+                  aria-hidden="true"
+                  >✓</span
+                >
+                <span>When you're next in line</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span
+                  class="inline-block w-5 h-5 rounded-full bg-orange-500 text-white flex justify-center items-center text-xs font-bold"
+                  aria-hidden="true"
+                  >✓</span
+                >
+                <span>If estimated wait time changes significantly</span>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </section>
+      <!-- Additional content to make page scrollable -->
+      <section class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4">
+        <h3 class="text-gray-900 font-semibold text-lg">Queue Guidelines</h3>
+        <p class="text-gray-700 text-sm">
+          Please arrive at least 10 minutes before your estimated time. If you are late, your spot may be forfeited.
+        </p>
+        <h3 class="text-gray-900 font-semibold text-lg">Contact Support</h3>
+        <p class="text-gray-700 text-sm">
+          For assistance, please contact our support team at
+          <a href="mailto:support@university.edu" class="text-orange-600 hover:underline">support@university.edu</a> or call
+          <a href="tel:+1234567890" class="text-orange-600 hover:underline">+1 (234) 567-890</a>.
+        </p>
+      </section>
+    </main>
+    <!-- Confirm Button -->
+    <footer class="max-w-md mx-auto px-4 pb-6 pt-4">
+      <button
+        type="button"
+        id="confirmBtn"
+        class="w-full bg-gray-400 text-white font-semibold text-xl rounded-lg py-3 mb-2 cursor-not-allowed"
+        disabled
+      >
+        Confirm &amp; Join Queue
+      </button>
+      <p class="text-center text-gray-700 text-sm" id="footerMessage">
+        Please enable Push Notification and select a transaction to continue
+      </p>
+    </footer>
+  </div>
+
   <script>
     // Password toggle
     const togglePassword = document.getElementById('togglePassword');
@@ -249,6 +545,7 @@
     const signInForm = document.getElementById('signInForm');
     const signInPage = document.getElementById('signInPage');
     const selectionPage = document.getElementById('selectionPage');
+    const queuePage = document.getElementById('queuePage');
 
     // College & Program selection elements
     const programsByCollege = {
@@ -308,11 +605,24 @@
     const step2 = document.getElementById("step2");
     const backBtn = document.getElementById("backBtn");
 
+    // Queue page elements
+    const transactionButtons = queuePage.querySelectorAll("#transaction-buttons button");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const pushCheckbox = document.getElementById("pushNotification");
+    const smsCheckbox = document.getElementById("smsNotification");
+    const phoneContainer = document.getElementById("phoneContainer");
+    const phoneInput = document.getElementById("phone");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const footerMessage = document.getElementById("footerMessage");
+    const queueBackBtn = document.getElementById("queueBackBtn");
+
+    let selectedTransaction = null;
+    let phoneVerified = false;
+    let joinedQueue = false;
+
     // On sign in form submit, simulate sign in and show selection page
     signInForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Here you can add real authentication logic if needed
-      // For now, just switch pages
       signInPage.classList.add('hidden');
       selectionPage.classList.remove('hidden');
       backBtn.disabled = false;
@@ -393,6 +703,273 @@
         continueBtn.classList.remove("bg-orange-600", "cursor-pointer");
       }
     });
+
+    // On continue button click, show queue page
+    continueBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (!continueBtn.disabled) {
+        selectionPage.classList.add('hidden');
+        queuePage.classList.remove('hidden');
+        resetQueuePage();
+      }
+    });
+
+    // Queue page back button to go back to selection page
+    queueBackBtn.addEventListener("click", () => {
+      if (joinedQueue) return; // prevent going back after joining
+      queuePage.classList.add('hidden');
+      selectionPage.classList.remove('hidden');
+    });
+
+    // Queue page logic
+    function resetQueuePage() {
+      selectedTransaction = null;
+      phoneVerified = false;
+      joinedQueue = false;
+      footerMessage.textContent = "Please enable Push Notification and select a transaction to continue";
+      confirmBtn.disabled = true;
+      confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+      confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+
+      // Reset transaction buttons
+      transactionButtons.forEach((btn) => {
+        btn.disabled = false;
+        btn.classList.remove("cursor-not-allowed", "opacity-60", "bg-orange-100", "border", "border-orange-500");
+        btn.querySelector("div").classList.remove("text-orange-700");
+        btn.querySelector("p").classList.remove("text-orange-700");
+      });
+
+      // Reset toggles
+      pushCheckbox.disabled = false;
+      pushCheckbox.checked = false;
+      smsCheckbox.disabled = true;
+      smsCheckbox.checked = false;
+
+      // Reset phone input and verify button
+      phoneInput.disabled = true;
+      phoneInput.value = "";
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = "Verify";
+      verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+      verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+
+      // Reset toggle parent opacity
+      pushCheckbox.parentElement.classList.remove("opacity-50", "cursor-not-allowed");
+      smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
+
+      phoneContainer.classList.add("hidden");
+      document.getElementById("phoneHelp").classList.add("hidden");
+
+      updateToggleStates();
+      updateConfirmButton();
+      updateCurrentTime();
+    }
+
+    // Update current time display in queue page header
+    function updateCurrentTime() {
+      const now = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+      const timeString = now.toLocaleTimeString([], options);
+      document.getElementById("currentTime").textContent = timeString;
+    }
+
+    // Update phone input and verify button visibility based on SMS checkbox
+    function updatePhoneVisibility() {
+      if (smsCheckbox.checked) {
+        phoneContainer.classList.remove("hidden");
+        phoneInput.removeAttribute("disabled");
+        document.getElementById("phoneHelp").classList.remove("hidden");
+        if (phoneInput.value.trim().length > 0 && !phoneVerified) {
+          verifyBtn.removeAttribute("disabled");
+          verifyBtn.classList.remove("bg-gray-300", "cursor-not-allowed");
+          verifyBtn.classList.add("bg-orange-500", "cursor-pointer");
+        } else if (phoneVerified) {
+          verifyBtn.setAttribute("disabled", "true");
+          verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+          verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+        } else {
+          verifyBtn.setAttribute("disabled", "true");
+          verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+          verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+        }
+        phoneInput.classList.remove("bg-gray-200", "cursor-not-allowed");
+      } else {
+        phoneContainer.classList.add("hidden");
+        phoneInput.setAttribute("disabled", "true");
+        verifyBtn.setAttribute("disabled", "true");
+        phoneInput.classList.add("bg-gray-200", "cursor-not-allowed");
+        verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+        phoneVerified = false;
+        verifyBtn.textContent = "Verify";
+        document.getElementById("phoneHelp").classList.add("hidden");
+        updateConfirmButton();
+      }
+    }
+
+    // Update toggle switches disabled state based on Push Notification checkbox
+    function updateToggleStates() {
+      if (pushCheckbox.checked) {
+        smsCheckbox.removeAttribute("disabled");
+        smsCheckbox.parentElement.classList.remove("opacity-50", "cursor-not-allowed");
+      } else {
+        smsCheckbox.checked = false;
+        smsCheckbox.setAttribute("disabled", "true");
+        smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
+      }
+      updatePhoneVisibility();
+    }
+
+    // Update Confirm button state with push notification required
+    function updateConfirmButton() {
+      if (joinedQueue) {
+        confirmBtn.disabled = true;
+        confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+        confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+        return;
+      }
+      // Confirm enabled only if push notification is ON and transaction selected AND (if SMS enabled, phone verified)
+      if (!pushCheckbox.checked) {
+        confirmBtn.disabled = true;
+        confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+        confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+        footerMessage.textContent = "Please enable Push Notification to continue";
+        return;
+      }
+      if (selectedTransaction) {
+        if (smsCheckbox.checked) {
+          if (phoneVerified) {
+            confirmBtn.disabled = false;
+            confirmBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+            confirmBtn.classList.add("bg-orange-400", "cursor-pointer");
+            footerMessage.textContent = "";
+          } else {
+            confirmBtn.disabled = true;
+            confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+            confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+            footerMessage.textContent = "Please verify your phone number to continue";
+          }
+        } else {
+          confirmBtn.disabled = false;
+          confirmBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+          confirmBtn.classList.add("bg-orange-400", "cursor-pointer");
+          footerMessage.textContent = "";
+        }
+      } else {
+        confirmBtn.disabled = true;
+        confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+        confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+        footerMessage.textContent = "Please select a transaction to continue";
+      }
+    }
+
+    // Handle transaction button click in queue page
+    transactionButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (joinedQueue) return;
+        transactionButtons.forEach((b) => {
+          b.classList.remove("bg-orange-100", "border", "border-orange-500");
+          b.querySelector("div").classList.remove("text-orange-700");
+          b.querySelector("p").classList.remove("text-orange-700");
+        });
+        btn.classList.add("bg-orange-100", "border", "border-orange-500");
+        btn.querySelector("div").classList.add("text-orange-700");
+        btn.querySelector("p").classList.add("text-orange-700");
+        selectedTransaction = btn.getAttribute("data-transaction");
+        updateConfirmButton();
+        footerMessage.textContent = "";
+      });
+    });
+
+    // Push notification toggle change
+    pushCheckbox.addEventListener("change", () => {
+      if (joinedQueue) {
+        pushCheckbox.checked = true;
+        return;
+      }
+      updateToggleStates();
+      updateConfirmButton();
+    });
+
+    // SMS notification toggle change
+    smsCheckbox.addEventListener("change", () => {
+      if (joinedQueue) {
+        smsCheckbox.checked = true;
+        return;
+      }
+      updatePhoneVisibility();
+      phoneVerified = false;
+      verifyBtn.textContent = "Verify";
+      verifyBtn.disabled = true;
+      verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+      verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+      phoneInput.disabled = false;
+      updateConfirmButton();
+    });
+
+    // Phone input event
+    phoneInput.addEventListener("input", () => {
+      if (joinedQueue) return;
+      phoneVerified = false;
+      verifyBtn.textContent = "Verify";
+      if (phoneInput.value.trim().length > 0) {
+        verifyBtn.disabled = false;
+        verifyBtn.classList.remove("bg-gray-300", "cursor-not-allowed");
+        verifyBtn.classList.add("bg-orange-500", "cursor-pointer");
+      } else {
+        verifyBtn.disabled = true;
+        verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+        verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+      }
+      updateConfirmButton();
+    });
+
+    // Verify button click
+    verifyBtn.addEventListener("click", () => {
+      if (joinedQueue) return;
+      const phoneValue = phoneInput.value.trim();
+      const phonePattern = /^[+]?[\d\s\-]{10,15}$/;
+      if (!phoneValue) {
+        alert("Please enter your phone number.");
+        phoneInput.focus();
+        return;
+      }
+      if (!phonePattern.test(phoneValue)) {
+        alert("Please enter a valid phone number (10 to 15 digits).");
+        phoneInput.focus();
+        return;
+      }
+      phoneVerified = true;
+      verifyBtn.textContent = "Verified";
+      verifyBtn.disabled = true;
+      verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
+      verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
+      phoneInput.disabled = true;
+      updateConfirmButton();
+    });
+
+    // Confirm button click
+    confirmBtn.addEventListener("click", () => {
+      if (confirmBtn.disabled || joinedQueue) return;
+      joinedQueue = true;
+      transactionButtons.forEach((btn) => {
+        btn.disabled = true;
+        btn.classList.add("cursor-not-allowed", "opacity-60");
+      });
+      pushCheckbox.disabled = true;
+      smsCheckbox.disabled = true;
+      verifyBtn.disabled = true;
+      phoneInput.disabled = true;
+      confirmBtn.disabled = true;
+      confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
+      confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+      footerMessage.textContent = "You have successfully joined the queue.";
+      pushCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
+      smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
+    });
+
+    // Initial setup
+    updateToggleStates();
+    updateConfirmButton();
   </script>
 </body>
 </html>
