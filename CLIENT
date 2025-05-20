@@ -11,16 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter&amp;display=swap" rel="stylesheet"/>
   <style>
    body {
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       margin: 0;
-      overflow: hidden; /* Remove scroll bar */
+      overflow: hidden;
       background-color: #fff9f9;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    /* Animation for fade out and fade in */
     .fade-out {
       animation: fadeOut 0.4s forwards;
     }
@@ -28,26 +27,40 @@
       animation: fadeIn 0.4s forwards;
     }
     @keyframes fadeOut {
-      from {opacity: 1; transform: translateX(0);}
-      to {opacity: 0; transform: translateX(-20px);}
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
     }
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateX(20px);}
-      to {opacity: 1; transform: translateX(0);}
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-    /* Container max height and width to prevent scroll */
-    #signInPage, #selectionPage, #queuePage, #confirmationPage {
+    #signInPage,
+    #selectionPage,
+    #queuePage,
+    #confirmationPage,
+    #queueStatusPage {
       max-height: 100vh;
       overflow: hidden;
     }
-    /* Custom toggle switch styling */
     input[type="checkbox"] {
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
       width: 3rem;
       height: 1.5rem;
-      background-color: #d1d5db; /* gray-300 default off */
+      background-color: #d1d5db;
       border-radius: 9999px;
       position: relative;
       cursor: pointer;
@@ -55,11 +68,11 @@
       transition: background-color 0.3s ease;
     }
     input[type="checkbox"]:checked {
-      background-color: #f97316; /* orange-500 when on */
+      background-color: #f97316;
     }
     input[type="checkbox"]:disabled {
       cursor: not-allowed;
-      background-color: #e5e7eb; /* gray-200 */
+      background-color: #e5e7eb;
     }
     input[type="checkbox"]::before {
       content: "";
@@ -71,13 +84,12 @@
       background-color: white;
       border-radius: 9999px;
       transition: transform 0.3s ease;
-      box-shadow: 0 0 0 1px #9ca3af; /* gray-400 default */
+      box-shadow: 0 0 0 1px #9ca3af;
     }
     input[type="checkbox"]:checked::before {
       transform: translateX(1.5rem);
-      box-shadow: 0 0 0 1px #f97316; /* orange-500 when on */
+      box-shadow: 0 0 0 1px #f97316;
     }
-    /* Check icon inside toggle */
     input[type="checkbox"]:checked::after {
       content: "\f00c";
       font-family: "Font Awesome 5 Free";
@@ -93,17 +105,61 @@
       justify-content: center;
       pointer-events: none;
     }
-    /* Scrollable queue page main content */
     #queuePage main {
       overflow-y: auto;
       flex-grow: 1;
       padding-bottom: 1rem;
     }
-    /* Scrollable confirmation page main content */
     #confirmationPage main {
       overflow-y: auto;
       flex-grow: 1;
       padding: 1rem;
+    }
+    /* Queue Status Page Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    #queueStatusPage body, #queueStatusPage {
+      font-family: 'Roboto', sans-serif;
+    }
+    @keyframes dashrotate {
+      0% {
+        stroke-dashoffset: 220;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    .animate-dashrotate {
+      animation-name: dashrotate;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: normal;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .animate-dashrotate-reverse {
+      animation-name: dashrotate;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: reverse;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    .spin {
+      animation: spin 1s linear infinite;
+    }
+    /* Updated confirm button color on confirmation page */
+    #confirmationPage footer button#doneBtn {
+      background-color: #fb6a2a; /* orange */
+      color: white;
+    }
+    #confirmationPage footer button#doneBtn:hover {
+      background-color: #e05a1a; /* darker orange */
     }
   </style>
  </head>
@@ -168,8 +224,7 @@
    </button>
   </div>
   <!-- College & Program Selection Page -->
-  <div class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full" id="selectionPage" style="max-width: 384px;">
-   <!-- Header -->
+  <div class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full" id="selectionPage" style="max-width: 384px">
    <header class="flex items-center justify-between bg-orange-500 px-4 py-3">
     <button aria-label="Back" class="text-white text-lg" disabled="" id="backBtn">
      <i class="fas fa-arrow-left">
@@ -185,7 +240,6 @@
      </i>
     </button>
    </header>
-   <!-- Step indicator -->
    <div class="flex items-center justify-center gap-2 bg-gray-300 mt-4 px-4">
     <div class="flex items-center gap-2" id="step1">
      <div class="flex items-center justify-center w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-semibold">
@@ -206,7 +260,6 @@
      </span>
     </div>
    </div>
-   <!-- Form container -->
    <form aria-label="Academic Information" class="bg-gray-100 rounded-lg shadow-md mt-4 mx-4 p-4 flex flex-col gap-4 flex-grow" id="selectionForm">
     <h2 class="font-bold text-black text-base">
      Academic Information
@@ -261,23 +314,20 @@
      </option>
     </select>
    </form>
-   <!-- Info box -->
    <div class="bg-gray-100 rounded-lg shadow-md mt-6 mx-4 p-3 flex items-start gap-3 text-xs text-gray-900 opacity-100" id="infoBox" role="alert">
     <i class="fas fa-info-circle text-orange-500 mt-[2px]">
     </i>
     <p>
-     Your selection will determine your academic pathway and administrative contacts.
-        Make sure to review your choices before proceeding.
+     Your selection will determine your academic pathway and administrative
+        contacts. Make sure to review your choices before proceeding.
     </p>
    </div>
-   <!-- Continue button -->
    <button class="bg-gray-400 text-white text-sm font-normal rounded-md mx-4 mt-4 mb-6 py-2 w-[calc(100%-2rem)] cursor-not-allowed" disabled="" form="selectionForm" id="continueBtn" type="submit">
     Continue
    </button>
   </div>
   <!-- Queue Page (3rd page) -->
   <div class="max-w-4xl mx-auto min-h-screen flex flex-col hidden bg-gray-300 font-sans w-full p-4" id="queuePage">
-   <!-- Header -->
    <header class="flex items-center justify-between bg-gray-300 px-4 py-3 shadow-md">
     <button aria-label="Back" class="text-black text-2xl font-extrabold leading-none" id="queueBackBtn">
      <i class="fas fa-chevron-left">
@@ -290,7 +340,6 @@
     </div>
    </header>
    <main class="px-4 py-4 space-y-6 w-full overflow-y-auto flex-grow" id="mainContent" tabindex="0">
-    <!-- Current Queue Status -->
     <section aria-label="Current Queue Status" class="bg-white rounded-xl p-4 shadow-lg max-w-md mx-auto">
      <div class="flex justify-between mb-2 text-sm text-gray-900 font-normal">
       <span>
@@ -317,7 +366,7 @@
         Light
        </span>
        <div class="flex space-x-1 text-green-500 text-xl leading-none">
-        <i class="fas fa-signal" style="font-size: 1.5rem;">
+        <i class="fas fa-signal" style="font-size: 1.5rem">
         </i>
        </div>
       </div>
@@ -337,7 +386,6 @@
       </div>
      </div>
     </section>
-    <!-- Select Your Transaction -->
     <section class="max-w-md mx-auto space-y-2" id="transactionSection">
      <h2 class="text-gray-900 font-normal text-lg">
       Select Your Transaction
@@ -396,7 +444,6 @@
       </button>
      </div>
     </section>
-    <!-- Notification Preferences -->
     <section aria-label="Notification Preferences" class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4" id="notificationSection">
      <div>
       <h3 class="text-gray-900 font-normal text-lg">
@@ -482,13 +529,13 @@
       </div>
      </form>
     </section>
-    <!-- Additional content to make page scrollable -->
     <section class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-4 space-y-4">
      <h3 class="text-gray-900 font-semibold text-lg">
       Queue Guidelines
      </h3>
      <p class="text-gray-700 text-sm">
-      Please arrive at least 10 minutes before your estimated time. If you are late, your spot may be forfeited.
+      Please arrive at least 10 minutes before your estimated time. If you
+          are late, your spot may be forfeited.
      </p>
      <h3 class="text-gray-900 font-semibold text-lg">
       Contact Support
@@ -506,7 +553,6 @@
      </p>
     </section>
    </main>
-   <!-- Confirm Button -->
    <footer class="max-w-md mx-auto px-4 pb-6 pt-4">
     <button class="w-full bg-gray-400 text-white font-semibold text-xl rounded-lg py-3 mb-2 cursor-not-allowed" disabled="" id="confirmBtn" type="button">
      Confirm &amp; Join Queue
@@ -519,48 +565,135 @@
   <!-- Confirmation Page (4th page) -->
   <div class="max-w-md mx-auto min-h-screen flex flex-col hidden bg-white font-sans w-full p-6 rounded-lg shadow-lg" id="confirmationPage">
    <header class="flex justify-center mb-6">
-    <img alt="Green checkmark icon symbolizing success and confirmation" class="w-20 h-20" height="80" src="https://storage.googleapis.com/a1aa/image/8cfe3aa0-5db3-4402-b183-79c0dd6164bf.jpg" width="80"/>
+    <img alt="Orange and white checkmark icon symbolizing success and confirmation matching the website's theme color" class="w-20 h-20" height="80" src="https://storage.googleapis.com/a1aa/image/7603ed00-6fb0-4ee2-9472-2c2c72b76748.jpg" width="80"/>
    </header>
    <main class="flex-grow flex flex-col items-center text-center space-y-4">
     <h2 class="text-2xl font-bold text-gray-900">
      You have successfully joined the queue!
     </h2>
     <p class="text-gray-700">
-     Thank you for joining the queue. Please wait for your turn and follow the instructions sent to your notifications.
+     Thank you for joining the queue. Please wait for your turn and follow
+        the instructions sent to your notifications.
     </p>
-    <img alt="Illustration of a waiting room with people sitting and waiting patiently" class="w-full max-w-xs rounded-md shadow-md" height="200" src="https://storage.googleapis.com/a1aa/image/eef2e3ae-4c6c-4f65-b202-131b3a06b469.jpg" width="300"/>
+    <img alt="Illustration of a group of diverse students queuing up patiently outside a university building, in a clean and modern flat style" class="w-full max-w-xs rounded-md shadow-md" height="200" src="https://storage.googleapis.com/a1aa/image/e364df15-db31-44b2-6672-7fada0d69bd8.jpg" width="300"/>
    </main>
    <footer class="mt-6">
-    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-md transition-colors" id="doneBtn" type="button">
+    <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 rounded-md transition-colors" id="doneBtn" type="button">
      Done
     </button>
    </footer>
   </div>
+  <!-- Queue Status Page (5th page) -->
+  <div class="hidden flex flex-col min-h-screen bg-gray-300" id="queueStatusPage">
+   <header class="flex items-center justify-between bg-gray-300 px-4 py-3 border-b border-gray-400">
+    <button aria-label="Back" class="text-black text-2xl leading-none" id="queueStatusBackBtn" type="button">
+     <i class="fas fa-chevron-left">
+     </i>
+    </button>
+    <h1 class="text-black font-extrabold text-lg">
+     Queue Status
+    </h1>
+    <button aria-label="Refresh" class="text-orange-600 text-2xl leading-none" id="refreshBtn" type="button" title="Refresh queue status">
+     <i class="fas fa-redo-alt">
+     </i>
+    </button>
+   </header>
+   <section class="mx-4 mt-6 bg-gray-200 rounded-lg shadow-md py-4 px-6">
+    <p class="text-center text-black text-sm mb-1">
+     Current Status
+    </p>
+    <p class="text-center text-orange-600 text-sm font-normal" id="lastUpdated">
+     Last updated: 9:09 AM
+    </p>
+   </section>
+   <section class="flex flex-col items-center mt-10">
+    <svg aria-label="Queue status circle" class="w-40 h-40" fill="none" role="img" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+     <circle cx="80" cy="80" r="70" stroke="#F97316" stroke-dasharray="220 220" stroke-dashoffset="0" stroke-linecap="round" stroke-width="2" class="animate-dashrotate">
+     </circle>
+     <circle cx="80" cy="80" opacity="0.3" r="70" stroke="#F97316" stroke-dasharray="220 220" stroke-dashoffset="110" stroke-linecap="round" stroke-width="2" class="animate-dashrotate-reverse">
+     </circle>
+     <text fill="#000000" font-family="Roboto, sans-serif" font-size="14" font-weight="400" text-anchor="middle" x="80" y="60">
+      Your Queue
+     </text>
+     <text fill="#F97316" font-family="Roboto, sans-serif" font-size="56" font-weight="400" text-anchor="middle" x="80" y="105" id="queueStatusNumber">
+      10
+     </text>
+     <text fill="#000000" font-family="Roboto, sans-serif" font-size="16" font-weight="400" text-anchor="middle" x="80" y="130" id="queueTotal">
+      of 10 total
+     </text>
+    </svg>
+   </section>
+   <section class="mt-10 mx-6 space-y-8">
+    <div class="flex items-center space-x-4">
+     <div class="flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center">
+       <i class="fas fa-clock text-white text-lg">
+       </i>
+      </div>
+     </div>
+     <div class="flex-1">
+      <p class="font-semibold text-black text-base">
+       Estimated Wait Time
+      </p>
+      <p class="text-black text-sm">
+       Based on current queue speed
+      </p>
+     </div>
+     <div class="text-orange-600 font-extrabold text-xl text-right w-20 leading-tight">
+      <span id="waitTimeNumber">15</span>
+      <br/>
+      <span id="waitTimeUnit">mins</span>
+     </div>
+    </div>
+    <div class="flex items-center space-x-4">
+     <div class="flex-shrink-0">
+      <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center">
+       <i class="fas fa-tachometer-alt text-white text-lg"></i>
+      </div>
+     </div>
+     <div class="flex-1">
+      <p class="font-semibold text-black text-base">
+       Queue Speed
+      </p>
+      <p class="text-black text-sm">
+       Moderate
+      </p>
+     </div>
+     <div class="text-orange-600 font-extrabold text-xl text-right w-28 leading-tight">
+      1.7 mins/
+      <br/>
+      person
+     </div>
+    </div>
+   </section>
+  </div>
   <script>
    // Password toggle
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
-    const eyeIcon = document.getElementById('eyeIcon');
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
 
-    togglePassword.addEventListener('click', () => {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
+    togglePassword.addEventListener("click", () => {
+      const type =
+        passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
 
-      if(type === 'text') {
-        eyeIcon.classList.remove('fa-eye');
-        eyeIcon.classList.add('fa-eye-slash');
+      if (type === "text") {
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
       } else {
-        eyeIcon.classList.remove('fa-eye-slash');
-        eyeIcon.classList.add('fa-eye');
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
       }
     });
 
     // Page elements
-    const signInForm = document.getElementById('signInForm');
-    const signInPage = document.getElementById('signInPage');
-    const selectionPage = document.getElementById('selectionPage');
-    const queuePage = document.getElementById('queuePage');
-    const confirmationPage = document.getElementById('confirmationPage');
+    const signInForm = document.getElementById("signInForm");
+    const signInPage = document.getElementById("signInPage");
+    const selectionPage = document.getElementById("selectionPage");
+    const queuePage = document.getElementById("queuePage");
+    const confirmationPage = document.getElementById("confirmationPage");
+    const queueStatusPage = document.getElementById("queueStatusPage");
 
     // College & Program selection elements
     const programsByCollege = {
@@ -569,47 +702,40 @@
         "Bachelor of Arts in Political Science",
         "Bachelor of Arts in Philippine Studies",
         "Bachelor of Science in Social Work",
-        "Bachelor of Science in Psychology"
+        "Bachelor of Science in Psychology",
       ],
       business: [
         "Bachelor of Science in Accountancy",
         "Bachelor of Science in Management Accounting",
         "Bachelor of Science in Business Administration",
         "Bachelor of Science in Entrepreneurship",
-        "Bachelor of Science in Public Administration"
+        "Bachelor of Science in Public Administration",
       ],
-      criminal: [
-        "Bachelor of Science in Criminology"
-      ],
+      criminal: ["Bachelor of Science in Criminology"],
       engineering: [
         "Bachelor of Science in Civil Engineering",
         "Bachelor of Science in Electrical Engineering",
         "Bachelor of Science in Mechanical Engineering",
-        "Bachelor of Science in Petroleum Engineering"
+        "Bachelor of Science in Petroleum Engineering",
       ],
-      architecture: [
-        "Bachelor of Science in Architecture"
-      ],
+      architecture: ["Bachelor of Science in Architecture"],
       hospitality: [
         "Bachelor of Science in Hospitality Management",
-        "Bachelor of Science in Tourism Management"
+        "Bachelor of Science in Tourism Management",
       ],
       science: [
         "Bachelor of Science in Biology",
         "Bachelor of Science in Marine Biology",
         "Bachelor of Science in Computer Science",
         "Bachelor of Science in Environmental Science",
-        "Bachelor of Science in Information Technology"
+        "Bachelor of Science in Information Technology",
       ],
       teachers: [
         "Bachelor of Physical Education",
         "Bachelor of Elementary Education",
-        "Bachelor of Secondary Education"
+        "Bachelor of Secondary Education",
       ],
-      nursing: [
-        "Bachelor of Science in Nursing",
-        "Bachelor of Science in Midwifery"
-      ]
+      nursing: ["Bachelor of Science in Nursing", "Bachelor of Science in Midwifery"],
     };
 
     const collegeSelect = document.getElementById("college");
@@ -620,7 +746,6 @@
     const step2 = document.getElementById("step2");
     const backBtn = document.getElementById("backBtn");
 
-    // Queue page elements
     const transactionButtons = queuePage.querySelectorAll("#transaction-buttons button");
     const confirmBtn = document.getElementById("confirmBtn");
     const pushCheckbox = document.getElementById("pushNotification");
@@ -632,28 +757,30 @@
     const queueBackBtn = document.getElementById("queueBackBtn");
 
     const doneBtn = document.getElementById("doneBtn");
+    const queueStatusBackBtn = document.getElementById("queueStatusBackBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
 
     let selectedTransaction = null;
     let phoneVerified = false;
     let joinedQueue = false;
 
-    // On sign in form submit, simulate sign in and show selection page
-    signInForm.addEventListener('submit', (e) => {
+    // Sign In form submit
+    signInForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      signInPage.classList.add('hidden');
-      selectionPage.classList.remove('hidden');
+      signInPage.classList.add("hidden");
+      selectionPage.classList.remove("hidden");
       backBtn.disabled = false;
     });
 
-    // Back button to return to sign in page
-    backBtn.addEventListener('click', () => {
-      selectionPage.classList.add('hidden');
-      signInPage.classList.remove('hidden');
+    // Back button on selection page
+    backBtn.addEventListener("click", () => {
+      selectionPage.classList.add("hidden");
+      signInPage.classList.remove("hidden");
       backBtn.disabled = true;
 
-      // Reset selection form and step indicator
       collegeSelect.value = "";
-      programSelect.innerHTML = '<option value="" selected disabled>Select a program</option>';
+      programSelect.innerHTML =
+        '<option value="" selected disabled>Select a program</option>';
       programSelect.disabled = true;
       continueBtn.disabled = true;
       continueBtn.classList.add("bg-gray-400", "cursor-not-allowed");
@@ -666,9 +793,11 @@
       step2.querySelector("span").classList.replace("text-gray-900", "text-gray-400");
     });
 
+    // College select change
     collegeSelect.addEventListener("change", () => {
       const selectedCollege = collegeSelect.value;
-      programSelect.innerHTML = '<option value="" selected disabled>Select a program</option>';
+      programSelect.innerHTML =
+        '<option value="" selected disabled>Select a program</option>';
       continueBtn.disabled = true;
       continueBtn.classList.add("bg-gray-400", "cursor-not-allowed");
       continueBtn.classList.remove("bg-orange-600", "cursor-pointer");
@@ -677,13 +806,15 @@
       if (selectedCollege && programsByCollege[selectedCollege]) {
         programsByCollege[selectedCollege].forEach((program) => {
           const option = document.createElement("option");
-          option.value = program.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
+          option.value = program
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9\-]/g, "");
           option.textContent = program;
           programSelect.appendChild(option);
         });
         programSelect.disabled = false;
 
-        // Animate info box fade out
         infoBox.classList.add("fade-out");
         setTimeout(() => {
           infoBox.style.opacity = "0";
@@ -691,17 +822,14 @@
           infoBox.classList.remove("fade-out");
         }, 400);
 
-        // Update step indicator to program selection active
         step1.querySelector("div").classList.replace("bg-orange-500", "bg-gray-400");
         step1.querySelector("span").classList.replace("text-gray-900", "text-gray-400");
         step2.querySelector("div").classList.replace("bg-gray-400", "bg-orange-500");
         step2.querySelector("span").classList.replace("text-gray-400", "text-gray-900");
       } else {
-        // Reset info box if no college selected
         infoBox.style.opacity = "1";
         infoBox.style.pointerEvents = "auto";
 
-        // Reset step indicator to college selection active
         step1.querySelector("div").classList.replace("bg-gray-400", "bg-orange-500");
         step1.querySelector("span").classList.replace("text-gray-400", "text-gray-900");
         step2.querySelector("div").classList.replace("bg-orange-500", "bg-gray-400");
@@ -709,6 +837,7 @@
       }
     });
 
+    // Program select change
     programSelect.addEventListener("change", () => {
       if (programSelect.value && collegeSelect.value) {
         continueBtn.disabled = false;
@@ -721,48 +850,52 @@
       }
     });
 
-    // On continue button click, show queue page
+    // Continue button click
     continueBtn.addEventListener("click", (e) => {
       e.preventDefault();
       if (!continueBtn.disabled) {
-        selectionPage.classList.add('hidden');
-        queuePage.classList.remove('hidden');
+        selectionPage.classList.add("hidden");
+        queuePage.classList.remove("hidden");
         resetQueuePage();
       }
     });
 
-    // Queue page back button to go back to selection page
+    // Queue page back button
     queueBackBtn.addEventListener("click", () => {
-      if (joinedQueue) return; // prevent going back after joining
-      queuePage.classList.add('hidden');
-      selectionPage.classList.remove('hidden');
+      if (joinedQueue) return;
+      queuePage.classList.add("hidden");
+      selectionPage.classList.remove("hidden");
     });
 
-    // Queue page logic
+    // Reset queue page state
     function resetQueuePage() {
       selectedTransaction = null;
       phoneVerified = false;
       joinedQueue = false;
-      footerMessage.textContent = "Please enable Push Notification and select a transaction to continue";
+      footerMessage.textContent =
+        "Please enable Push Notification and select a transaction to continue";
       confirmBtn.disabled = true;
       confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
       confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
 
-      // Reset transaction buttons
       transactionButtons.forEach((btn) => {
         btn.disabled = false;
-        btn.classList.remove("cursor-not-allowed", "opacity-60", "bg-orange-100", "border", "border-orange-500");
+        btn.classList.remove(
+          "cursor-not-allowed",
+          "opacity-60",
+          "bg-orange-100",
+          "border",
+          "border-orange-500"
+        );
         btn.querySelector("div").classList.remove("text-orange-700");
         btn.querySelector("p").classList.remove("text-orange-700");
       });
 
-      // Reset toggles
       pushCheckbox.disabled = false;
       pushCheckbox.checked = false;
       smsCheckbox.disabled = true;
       smsCheckbox.checked = false;
 
-      // Reset phone input and verify button
       phoneInput.disabled = true;
       phoneInput.value = "";
       verifyBtn.disabled = true;
@@ -770,7 +903,6 @@
       verifyBtn.classList.remove("bg-orange-500", "cursor-pointer");
       verifyBtn.classList.add("bg-gray-300", "cursor-not-allowed");
 
-      // Reset toggle parent opacity
       pushCheckbox.parentElement.classList.remove("opacity-50", "cursor-not-allowed");
       smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
 
@@ -782,15 +914,15 @@
       updateCurrentTime();
     }
 
-    // Update current time display in queue page header
+    // Update current time display
     function updateCurrentTime() {
       const now = new Date();
-      const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+      const options = { hour: "2-digit", minute: "2-digit", hour12: true };
       const timeString = now.toLocaleTimeString([], options);
       document.getElementById("currentTime").textContent = timeString;
     }
 
-    // Update phone input and verify button visibility based on SMS checkbox
+    // Update phone input visibility
     function updatePhoneVisibility() {
       if (smsCheckbox.checked) {
         phoneContainer.classList.remove("hidden");
@@ -823,7 +955,7 @@
       }
     }
 
-    // Update toggle switches disabled state based on Push Notification checkbox
+    // Update toggle states
     function updateToggleStates() {
       if (pushCheckbox.checked) {
         smsCheckbox.removeAttribute("disabled");
@@ -836,7 +968,7 @@
       updatePhoneVisibility();
     }
 
-    // Update Confirm button state with push notification required
+    // Update confirm button state
     function updateConfirmButton() {
       if (joinedQueue) {
         confirmBtn.disabled = true;
@@ -844,7 +976,6 @@
         confirmBtn.classList.remove("bg-orange-400", "cursor-pointer");
         return;
       }
-      // Confirm enabled only if push notification is ON and transaction selected AND (if SMS enabled, phone verified)
       if (!pushCheckbox.checked) {
         confirmBtn.disabled = true;
         confirmBtn.classList.add("bg-gray-400", "cursor-not-allowed");
@@ -879,7 +1010,7 @@
       }
     }
 
-    // Handle transaction button click in queue page
+    // Transaction buttons click
     transactionButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         if (joinedQueue) return;
@@ -983,23 +1114,30 @@
       pushCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
       smsCheckbox.parentElement.classList.add("opacity-50", "cursor-not-allowed");
 
-      // Hide queue page and show confirmation page
-      queuePage.classList.add('hidden');
-      confirmationPage.classList.remove('hidden');
+      queuePage.classList.add("hidden");
+      confirmationPage.classList.remove("hidden");
     });
 
-    // Done button click - reset to sign in page
+    // Done button click - show queue status page
     doneBtn.addEventListener("click", () => {
-      confirmationPage.classList.add('hidden');
-      signInPage.classList.remove('hidden');
+      confirmationPage.classList.add("hidden");
+      queueStatusPage.classList.remove("hidden");
+      updateCurrentTimeQueueStatus();
+      setAnimationSpeed(15);
+      updateQueueStatus(10, 15);
+    });
+
+    // Queue Status Page Back button - go to sign in page
+    queueStatusBackBtn.addEventListener("click", () => {
+      queueStatusPage.classList.add("hidden");
+      signInPage.classList.remove("hidden");
 
       // Reset all forms and states
-      // Sign In form reset
       signInForm.reset();
 
-      // Selection page reset
       collegeSelect.value = "";
-      programSelect.innerHTML = '<option value="" selected disabled>Select a program</option>';
+      programSelect.innerHTML =
+        '<option value="" selected disabled>Select a program</option>';
       programSelect.disabled = true;
       continueBtn.disabled = true;
       continueBtn.classList.add("bg-gray-400", "cursor-not-allowed");
@@ -1011,13 +1149,61 @@
       step2.querySelector("div").classList.replace("bg-orange-500", "bg-gray-400");
       step2.querySelector("span").classList.replace("text-gray-900", "text-gray-400");
 
-      // Queue page reset
       resetQueuePage();
     });
 
-    // Initial setup
-    updateToggleStates();
-    updateConfirmButton();
+    // Queue Status Page refresh button logic
+    function setAnimationSpeed(waitTime) {
+      const baseDuration = 1.5;
+      let duration = baseDuration * waitTime;
+      if (duration < 1.5) duration = 1.5;
+      if (duration > 10) duration = 10;
+
+      const circles = document.querySelectorAll(
+        ".animate-dashrotate, .animate-dashrotate-reverse"
+      );
+      circles.forEach((circle) => {
+        circle.style.animationDuration = duration + "s";
+      });
+    }
+
+    function updateQueueStatus(queueNumber, waitTime) {
+      document.getElementById("queueStatusNumber").textContent = queueNumber;
+      document.getElementById("queueTotal").textContent = `of 10 total`;
+      document.getElementById("waitTimeNumber").textContent = Math.round(waitTime);
+      document.getElementById("waitTimeUnit").textContent = "mins";
+      setAnimationSpeed(waitTime);
+    }
+
+    function updateCurrentTimeQueueStatus() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const ampm = now.getHours() >= 12 ? "PM" : "AM";
+      const updatedTime = `${hours}:${minutes} ${ampm}`;
+      document.getElementById("lastUpdated").textContent = `Last updated: ${updatedTime}`;
+    }
+
+    function refreshQueueStatus() {
+      const refreshBtn = document.getElementById("refreshBtn");
+      const refreshIcon = refreshBtn.querySelector("i");
+      refreshIcon.classList.add("spin");
+      refreshBtn.disabled = true;
+
+      setTimeout(() => {
+        updateCurrentTimeQueueStatus();
+
+        const newQueue = Math.floor(Math.random() * 11) + 5;
+        const newWaitTime = (newQueue * 1.5).toFixed(1);
+
+        updateQueueStatus(newQueue, newWaitTime);
+
+        refreshIcon.classList.remove("spin");
+        refreshBtn.disabled = false;
+      }, 2000);
+    }
+
+    refreshBtn.addEventListener("click", refreshQueueStatus);
   </script>
  </body>
 </html>
